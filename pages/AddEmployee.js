@@ -12,9 +12,9 @@ export class AddEmployee {
     await this.photoUploadInput.setInputFiles('uploads/profile.jpg');
   }
 
-  async addEmployee(firstname, lastname) {
-    await this.firstNameInput.fill(firstname);
-    await this.lastNameInput.fill(lastname);
+  async addEmployee(firstName, lastName) {
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
     await this.saveButton.click();
   }
 }
