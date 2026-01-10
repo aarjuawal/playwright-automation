@@ -10,4 +10,4 @@ test('login with valid credentials', async ({ page }) => {
 
     await expect(page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
 
-})
+})                  
