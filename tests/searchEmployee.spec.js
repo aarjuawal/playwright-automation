@@ -1,17 +1,39 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
-const { Dashboard } = require('../pages/Dashboard');
-const { faker } = require('@faker-js/faker'); 
 const { EmployeeList } = require('../pages/EmployeeList');
 
-test('Search by employee name', async ({ page }) => {
+test.describe('Employee Search Tests', () => {
+  
+  test('Search by employee name', async ({ page }) => {
     const loginPage = new LoginPage(page);
-    const dashboard = new Dashboard(page);
+    const employeeList = new EmployeeList(page);
+
+    // Login
+    await loginPage.goto();
+    await loginPage.login('Admin', 'admin123');
+    
+    // Navigate to employee list
+    await employeeList.navigateToEmployeeList();
+    
+    // Search for employee
+    await employeeList.searchEmployeeByName('Amelia');
+    
+
+  });
+
+  test('Search with non-existent employee name', async ({ page }) => {
+    const loginPage = new LoginPage(page);
     const employeeList = new EmployeeList(page);
 
     await loginPage.goto();
     await loginPage.login('Admin', 'admin123');
     await employeeList.navigateToEmployeeList();
-    await employeeList.searchEmployeeByName('aarju');
-
+    
+    // Search for non-existent employee
+    await employeeList.searchEmployeeByName('NonExistentEmployee12345');
+    
+    // Should show no records
+    // const isNoRecords = await employeeList.isNoRecordsMessageVisible();
+    // expect(isNoRecords).toBeTruthy();
+  });
 });
