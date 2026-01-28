@@ -1,38 +1,13 @@
-const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../pages/LoginPage');
-const { Dashboard } = require('../pages/Dashboard');
+const { test, expect } = require('../utils/testBase');
 const { EmployeeList } = require('../pages/EmployeeList');
 
-//Navigate to PIM..
-// Open employee list..
-//search employee
-// Click delete on a row
-// confirm 
-// Validate success
+test('Delete employee by search', async ({ page }) => {
+  const employeeList = new EmployeeList(page);
 
-test.describe('Delete Employee Tests', () => {
-    test('Delete employee by search', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const employeeList = new EmployeeList(page);
+  await employeeList.navigateToEmployeeList();
+  await employeeList.searchEmployeeByName('joker');
+  await employeeList.deleteEmployee();
 
-    // Login
-    await loginPage.goto();
-    await loginPage.login('Admin', 'admin123');
-    
-    // Navigate to employee list
-    await employeeList.navigateToEmployeeList();
-
-    //search by name
-    await employeeList.searchEmployeeByName('joker');
-
-    //click  delete button
-    await employeeList.deleteEmployee();
-
-    //verify delete
-    await employeeList.isNoRecordsMessageVisible()
-
-
-
-  })
-
+  await employeeList.searchEmployeeByName('joker');
+  await expect(employeeList.noRecordsFound).toBeVisible();
 });
