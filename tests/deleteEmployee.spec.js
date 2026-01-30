@@ -9,5 +9,6 @@ test('Delete employee by search', async ({ page }) => {
   await employeeList.deleteEmployee();
 
   await employeeList.searchEmployeeByName('joker');
-  await expect(employeeList.noRecordsFound).toBeVisible();
+  await expect(page.getByText('No Records Found')).toBeVisible();
+
 });
