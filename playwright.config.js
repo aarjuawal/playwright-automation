@@ -31,12 +31,13 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    extraHTTPHeaders: {
-      'x-api-key': process.env.REQRES_API_KEY,
-      'Accept': 'application/json'
-    }
-  },
+use: {
+  baseURL: 'https://reqres.in',
+  extraHTTPHeaders: {
+    'x-api-key': process.env.REQRES_API_KEY || '',
+    'Accept': 'application/json'
+  }
+},
 
   /* Configure projects for major browsers */
   projects: [
